@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import mechanizeFuncs
 
-beautifulSoupObj = mechanizeFuncs.getCourseForm("CS", 245)
+beautifulSoupObj = mechanizeFuncs.getCourseForm("MATH", 135)
 
 
 # releventRows = beautifulSoupObj.find("table").findAll("tr")[
@@ -20,7 +20,9 @@ for tr in allTR:
         if each.string:
             section.append(each.string.strip())
     allSections.append(section)
-print(allSections)
+
+for section in allSections:
+    print(section)
 # for row in releventRows:
 #     allTDs = row.findAll("td")
 #     strings = []
