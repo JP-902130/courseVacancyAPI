@@ -1,7 +1,30 @@
 from bs4 import BeautifulSoup
 import requests
-url = "https://www.newegg.ca/gigabyte-geforce-rtx-3080-ti-gv-n308tgaming-oc-12gd/p/N82E16814932436?Description=3080&cm_re=3080-_-14-932-436-_-Product"
+import mechanizeFuncs
 
-result = requests.get(url)
-doc = BeautifulSoup(result.text, "lxml")
-print(type(doc))
+beautifulSoupObj = mechanizeFuncs.getCourseForm("CS", 245)
+
+
+# releventRows = beautifulSoupObj.find("table").findAll("tr")[
+#     2].findAll("tr")[1:]
+
+text1 = beautifulSoupObj.find_all('td', recursive=True)
+filtered = filter(lambda obj: obj.string == 'LEC 001 ', text1)
+allTR = list(filtered)[0].parent.parent.find_all("tr")[1:]
+
+allSections = []
+for tr in allTR:
+    section = []
+    allTD = tr.find_all("td")
+    for each in allTD:
+        if each.string:
+            section.append(each.string.strip())
+    allSections.append(section)
+print(allSections)
+# for row in releventRows:
+#     allTDs = row.findAll("td")
+#     strings = []
+#     for td in allTDs:
+#         if td.string:
+#             strings.append(td.string.strip())
+#     print(strings)
