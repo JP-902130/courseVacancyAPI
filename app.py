@@ -1,6 +1,7 @@
 from flask import Flask
 from time import sleep
 from concurrent.futures import ThreadPoolExecutor
+import tools
 import mechanizeFuncs
 executor = ThreadPoolExecutor(2)
 
@@ -9,14 +10,18 @@ app = Flask(__name__)
 
 @app.route('/jobs')
 def run_jobs():
+
     executor.submit(some_long_task1)
-    return 'Two jobs were launched in background!'
+    return 'running'
 
 
 def some_long_task1():
-    courseLists = mechanizeFuncs.getCourseSections("MATH", 135)
-    sleep(5)
-    print(courseLists)
+    try:
+        courseObj = mechanizeFuncs.getCourseSections("CS", 138)
+        hasSeat = tools.hasSeats(courseObj)
+        print(hasSeat)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
