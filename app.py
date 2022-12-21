@@ -11,17 +11,21 @@ app = Flask(__name__)
 @app.route('/jobs')
 def run_jobs():
 
-    executor.submit(some_long_task1)
+    while True:
+        executor.submit(some_long_task1(input("course"), input("code")))
+        isquit = input("quit?")
+        if isquit == 'q':
+            break
     return 'running'
 
 
-def some_long_task1():
+def some_long_task1(course, code):
     try:
-        courseObj = mechanizeFuncs.getCourseSections("CS", 138)
+        courseObj = mechanizeFuncs.getCourseSections(course, int(code))
         hasSeat = tools.hasSeats(courseObj)
         print(hasSeat)
     except Exception as e:
-        print(e)
+        print("Your course choice is not available next semester")
 
 
 if __name__ == '__main__':
