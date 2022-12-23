@@ -8,6 +8,11 @@ executor = ThreadPoolExecutor(2)
 app = Flask(__name__)
 
 
+@app.route('/')
+def f():
+    return "main page"
+
+
 @app.route('/getAvailability', methods=['GET'])
 def run_jobs():
     courseName = request.args.get('courseName')
