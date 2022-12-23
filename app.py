@@ -3,6 +3,7 @@ from time import sleep
 from concurrent.futures import ThreadPoolExecutor
 import tools
 import mechanizeFuncs
+import os
 executor = ThreadPoolExecutor(2)
 
 app = Flask(__name__)
@@ -45,4 +46,5 @@ def run_jobs():
 #     except Exception as e:
 #         print("Your course choice is not available next semester")
 if __name__ == '__main__':
-    app.run()
+    PORT = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=PORT, debug=True)
